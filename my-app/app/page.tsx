@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Home() {
   return (
@@ -15,9 +16,33 @@ export default function Home() {
           <Link href="#" className="hover:text-white transition-colors">Sustainability</Link>
           <Link href="#" className="hover:text-white transition-colors">About</Link>
         </div>
-        <button className="hidden md:block px-5 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-gray-100 transition-colors">
-          Contact Us
-        </button>
+        
+        {/* Clerk Auth Buttons */}
+        <div className="flex items-center gap-3">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="hidden md:block px-5 py-2 text-sm font-medium text-white/90 hover:text-white transition-colors">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="px-5 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-gray-100 transition-colors">
+                Get Started
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          
+          <SignedIn>
+            <UserButton 
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10 rounded-full border-2 border-white/20"
+                }
+              }}
+            />
+          </SignedIn>
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -159,9 +184,18 @@ export default function Home() {
             <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto">
               Join the farmers using our science-driven technology to improve soil health and profitability.
             </p>
-            <button className="px-10 py-4 bg-white text-emerald-900 text-lg font-bold rounded-full hover:bg-emerald-50 transition-all shadow-xl hover:scale-105">
-              Contact Sales
-            </button>
+            <SignedOut>
+              <SignUpButton mode="modal">
+                <button className="px-10 py-4 bg-white text-emerald-900 text-lg font-bold rounded-full hover:bg-emerald-50 transition-all shadow-xl hover:scale-105">
+                  Get Started Today
+                </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <button className="px-10 py-4 bg-white text-emerald-900 text-lg font-bold rounded-full hover:bg-emerald-50 transition-all shadow-xl hover:scale-105">
+                Contact Sales
+              </button>
+            </SignedIn>
          </div>
       </section>
 
@@ -212,5 +246,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    
   );
 }
