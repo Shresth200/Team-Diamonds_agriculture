@@ -5,11 +5,11 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, OrbitControls, Float, Center, Html } from "@react-three/drei";
 import * as ONE from "three";
 
-function Model(props: any) {
+function Model(props: React.ComponentProps<'group'>) {
      const { scene } = useGLTF("/farm_scene.glb");
      const modelRef = useRef<ONE.Group>(null);
 
-     useFrame((state) => {
+     useFrame(() => {
           if (modelRef.current) {
                modelRef.current.rotation.y += 0.002;
           }

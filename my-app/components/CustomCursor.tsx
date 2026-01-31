@@ -86,7 +86,6 @@ export default function CustomCursor() {
 
           return () => {
                window.removeEventListener("mousemove", moveCursor);
-               window.removeEventListener("resize", checkMobile);
                clickables.forEach((el) => {
                     el.removeEventListener("mouseenter", handleHoverStart);
                     el.removeEventListener("mouseleave", handleHoverEnd);
@@ -122,13 +121,13 @@ export default function CustomCursor() {
                {/* Outer Follower */}
                <div
                     ref={followerRef}
-                    className="fixed top-0 left-0 w-8 h-8 border border-emerald-500 rounded-full pointer-events-none z-[9999] mix-blend-exclusion"
+                    className="fixed top-0 left-0 w-8 h-8 border border-emerald-500 rounded-full pointer-events-none z-9999 mix-blend-exclusion"
                />
 
                {/* Inner Dot */}
                <div
                     ref={cursorRef}
-                    className="fixed top-0 left-0 w-2 h-2 bg-emerald-400 rounded-full pointer-events-none z-[9999]"
+                    className="fixed top-0 left-0 w-2 h-2 bg-emerald-400 rounded-full pointer-events-none z-9999"
                />
           </>
      );

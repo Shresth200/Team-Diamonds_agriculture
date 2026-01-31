@@ -18,7 +18,7 @@ export default function Navbar() {
                               className="object-cover"
                          />
                     </div>
-                    <span className="font-bold text-white tracking-tight text-2xl font-sans bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 drop-shadow-sm">
+                    <span className="font-bold tracking-tight text-2xl font-sans bg-clip-text text-transparent bg-linear-to-r from-emerald-400 to-cyan-400 drop-shadow-sm">
                          Krishi Mitra Ai
                     </span>
                </Link>
