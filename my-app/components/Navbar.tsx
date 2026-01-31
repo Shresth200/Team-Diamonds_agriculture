@@ -2,30 +2,38 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Navbar() {
      return (
-          <nav className="flex items-center justify-between px-6 py-6 md:px-10 absolute top-0 w-full z-50">
+          <nav className="flex items-center justify-between px-6 py-6 md:px-12 absolute top-0 w-full z-50">
                {/* Logo (Left/Center if you want) */}
-               <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 bg-emerald-500 rounded-sm flex items-center justify-center">
-                         <div className="w-4 h-4 bg-black/20" />
+               <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-10 h-10 overflow-hidden rounded-full border border-white/10 shadow-lg">
+                         <Image
+                              src="/image.png"
+                              alt="Krishi Mitra Logo"
+                              fill
+                              className="object-cover"
+                         />
                     </div>
-                    <span className="font-bold text-white tracking-tight text-xl">FARM MINERALS</span>
+                    <span className="font-bold text-white tracking-tight text-2xl font-sans bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 drop-shadow-sm">
+                         Krishi Mitra Ai
+                    </span>
                </Link>
 
                {/* Auth (Right) */}
                <div className="flex items-center gap-4">
                     <SignedOut>
                          <SignInButton mode="modal">
-                              <button className="text-sm font-medium text-white/80 hover:text-white transition-colors">
-                                   Sign In
+                              <button className="text-sm font-medium text-white/70 hover:text-white transition-colors tracking-wide uppercase">
+                                   Log In
                               </button>
                          </SignInButton>
                          <SignUpButton mode="modal">
-                              <button className="px-5 py-2 text-sm font-bold text-black bg-white rounded-full hover:bg-gray-200 transition-colors">
-                                   Join
+                              <button className="px-6 py-2.5 text-sm font-bold text-black bg-white rounded-full hover:bg-emerald-50 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transform hover:-translate-y-0.5">
+                                   Get Started
                               </button>
                          </SignUpButton>
                     </SignedOut>
