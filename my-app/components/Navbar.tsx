@@ -1,22 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import gsap from "gsap";
-
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import React, { useState } from "react";
+import {
+     Navbar as HeroNavbar,
+     NavbarBrand,
+     NavbarContent,
+     NavbarItem,
+     Link,
+     Button,
+     NavbarMenuToggle,
+     NavbarMenu,
+     NavbarMenuItem,
+} from "@heroui/react";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
      const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-     // Lock body scroll when menu is open
-     useEffect(() => {
-          if (isMenuOpen) {
-               document.body.style.overflow = "hidden";
-          } else {
-               document.body.style.overflow = "unset";
-          }
-     }, [isMenuOpen]);
 
      const menuItems = [
           { label: "Products", href: "/products" },
@@ -27,100 +26,98 @@ export default function Navbar() {
      ];
 
      return (
-          <>
-               {/* Top Navigation Bar */}
-               <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-10 mix-blend-difference text-white">
-
-                    {/* Menu Trigger (Left) */}
-                    <button
-                         onClick={() => setIsMenuOpen(true)}
-                         className="group flex items-center gap-3 hover:text-emerald-400 transition-colors"
-                    >
-                         <div className="flex flex-col gap-[4px] w-6 h-6 justify-center">
-                              {/* Custom Pixelated Hamburger Icon */}
-                              <div className="w-1 h-1 bg-current shadow-[4px_0_0_0_currentColor,8px_0_0_0_currentColor,12px_0_0_0_currentColor]" />
-                              <div className="w-1 h-1 bg-current shadow-[4px_0_0_0_currentColor,8px_0_0_0_currentColor,12px_0_0_0_currentColor]" />
-                              <div className="w-1 h-1 bg-current shadow-[4px_0_0_0_currentColor,8px_0_0_0_currentColor,12px_0_0_0_currentColor]" />
+          <HeroNavbar
+               onMenuOpenChange={setIsMenuOpen}
+               maxWidth="xl"
+               className="bg-black/50 backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/10"
+               isBordered
+               classNames={{
+                    item: [
+                         "flex",
+                         "relative",
+                         "h-full",
+                         "items-center",
+                         "data-[active=true]:after:content-['']",
+                         "data-[active=true]:after:absolute",
+                         "data-[active=true]:after:bottom-0",
+                         "data-[active=true]:after:left-0",
+                         "data-[active=true]:after:right-0",
+                         "data-[active=true]:after:h-[2px]",
+                         "data-[active=true]:after:rounded-[2px]",
+                         "data-[active=true]:after:bg-emerald-500",
+                    ],
+               }}
+          >
+               <NavbarContent>
+                    <NavbarMenuToggle
+                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                         className="sm:hidden text-white"
+                    />
+                    <NavbarBrand>
+                         <div className="w-8 h-8 mr-2 bg-emerald-500 rounded-sm flex items-center justify-center">
+                              <div className="w-4 h-4 bg-black/20" />
                          </div>
-                         <span className="font-pixel text-xl tracking-wide">MENU</span>
-                    </button>
+                         <p className="font-bold text-white tracking-tight text-xl">FARM MINERALS</p>
+                    </NavbarBrand>
+               </NavbarContent>
 
-                    {/* Logo (Center) */}
-                    <Link href="/" className="absolute left-1/2 top-6 -translate-x-1/2 text-center group">
-                         {/* Simple Pixel Flower Icon Placeholder */}
-                         <div className="w-4 h-4 mx-auto mb-1 bg-white group-hover:bg-emerald-400 transition-colors shadow-[4px_-4px_0_0_rgba(255,255,255,0.5),-4px_-4px_0_0_rgba(255,255,255,0.5)]" />
-                         <span className="font-pixel text-lg tracking-tight block">Farm Minerals</span>
-                    </Link>
+               <NavbarContent className="hidden sm:flex gap-4" justify="center">
+                    {menuItems.slice(0, 3).map((item) => (
+                         <NavbarItem key={item.href}>
+                              <Link color="foreground" href={item.href} className="text-white/80 hover:text-emerald-400 transition-colors">
+                                   {item.label}
+                              </Link>
+                         </NavbarItem>
+                    ))}
+               </NavbarContent>
 
-                    {/* Auth (Right) */}
-                    <div className="flex items-center gap-4">
+               <NavbarContent justify="end">
+                    <NavbarItem className="hidden lg:flex">
+                         <Link href="/contact" className="text-white/80 hover:text-emerald-400">Contact</Link>
+                    </NavbarItem>
+                    <NavbarItem>
                          <SignedOut>
-                              <SignInButton mode="modal">
-                                   <button className="hidden md:block font-pixel text-lg hover:text-emerald-400 transition-colors">
-                                        SIGN IN
-                                   </button>
-                              </SignInButton>
-                              <SignUpButton mode="modal">
-                                   <button className="font-pixel text-lg bg-white text-black px-4 py-1 hover:bg-emerald-400 transition-colors shadow-[4px_4px_0_0_rgba(255,255,255,0.5)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]">
-                                        JOIN
-                                   </button>
-                              </SignUpButton>
+                              <div className="flex gap-2">
+                                   <SignInButton mode="modal">
+                                        <Button as={Link} color="primary" href="#" variant="flat" className="bg-transparent text-white hover:bg-white/10">
+                                             Sign In
+                                        </Button>
+                                   </SignInButton>
+                                   <SignUpButton mode="modal">
+                                        <Button as={Link} color="primary" href="#" variant="solid" className="bg-emerald-500 text-black font-semibold">
+                                             Join
+                                        </Button>
+                                   </SignUpButton>
+                              </div>
                          </SignedOut>
-
                          <SignedIn>
                               <UserButton
                                    appearance={{
                                         elements: {
-                                             avatarBox: "w-8 h-8 md:w-10 md:h-10 border-2 border-white"
+                                             avatarBox: "w-10 h-10 border-2 border-emerald-500/50"
                                         }
                                    }}
                               />
                          </SignedIn>
-                    </div>
-               </nav>
+                    </NavbarItem>
+               </NavbarContent>
 
-               {/* Full Screen Overlay Menu */}
-               <div
-                    className={`fixed inset-0 z-[60] bg-[#2E3B23] text-[#E8F1D5] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "translate-y-0" : "-translate-y-full"
-                         }`}
-               >
-                    <div className="flex flex-col h-full p-6 md:p-10">
-                         {/* Header inside Menu */}
-                         <div className="flex justify-between items-center">
-                              <button
-                                   onClick={() => setIsMenuOpen(false)}
-                                   className="flex items-center gap-3 hover:text-white transition-colors text-[#E8F1D5]/70"
+               <NavbarMenu className="bg-black/90 pt-8">
+                    {menuItems.map((item, index) => (
+                         <NavbarMenuItem key={`${item}-${index}`}>
+                              <Link
+                                   color={
+                                        index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                                   }
+                                   className="w-full text-2xl text-white py-2 hover:text-emerald-400"
+                                   href={item.href}
+                                   size="lg"
                               >
-                                   <span className="font-pixel text-xl">CLOSE</span>
-                              </button>
-
-                              <div className="font-pixel text-lg text-[#E8F1D5]/70">Farm Minerals</div>
-                         </div>
-
-                         {/* Main Menu Links */}
-                         <div className="flex-1 flex flex-col justify-center gap-2 md:gap-4 pl-4 md:pl-20">
-                              {menuItems.map((item, i) => (
-                                   <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        className="font-pixel text-6xl md:text-8xl hover:text-white hover:translate-x-4 transition-all duration-300 block w-fit"
-                                   >
-                                        {item.label}
-                                   </Link>
-                              ))}
-                         </div>
-
-                         {/* Footer inside Menu */}
-                         <div className="flex flex-col md:flex-row justify-between items-end border-l-2 border-[#E8F1D5]/20 pl-6 md:pl-10 py-4 text-xs md:text-sm font-mono text-[#E8F1D5]/60 gap-4">
-                              <div>
-                                   <div className="mb-2 font-pixel text-lg text-[#E8F1D5]">FARM THE LEAP</div>
-                                   <a href="mailto:hello@farmminerals.com" className="hover:text-white transition-colors">HELLO@FARMMINERALS.COM</a>
-                              </div>
-                              <a href="#" className="hover:text-white transition-colors font-pixel text-lg">LINKEDIN</a>
-                         </div>
-                    </div>
-               </div>
-          </>
+                                   {item.label}
+                              </Link>
+                         </NavbarMenuItem>
+                    ))}
+               </NavbarMenu>
+          </HeroNavbar>
      );
 }

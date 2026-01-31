@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import AIChatInterface from "@/components/AIChatInterface";
 import { SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs';
 
 export default function Home() {
@@ -51,9 +52,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column: Placeholder for 3D Model (Removed) */}
-          <div className="relative h-[50vh] lg:h-[80vh] w-full flex items-center justify-center">
-            {/* 3D Model removed as requested */}
+          {/* Right Column: AI Chat Interface */}
+          <div className="relative w-full h-full flex items-center justify-center lg:h-auto min-h-[500px]">
+            <AIChatInterface />
           </div>
         </div>
 
